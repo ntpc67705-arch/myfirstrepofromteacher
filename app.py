@@ -39,11 +39,11 @@ def set_fantasy_css(weather):
         box-shadow: 0 0 16px rgba(33, 124, 255, 0.2);
         animation: pulse 1.2s ease-in-out infinite;
     }}
-    @keyframes pulse {
+    @keyframes pulse {{
         0% {{ transform: translateY(0) scale(1); }}
         50% {{ transform: translateY(-4px) scale(1.02); }}
         100% {{ transform: translateY(0) scale(1); }}
-    }
+    }}
     .item-card {{
         background: rgba(218, 252, 255, 0.9);
         border: 1px dashed #57c6f7;
