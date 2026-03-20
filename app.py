@@ -223,20 +223,22 @@ if not st.session_state.game_over:
             st.markdown(f'<div class="item-card">{item}</div>', unsafe_allow_html=True)
 
         c1, c2, c3 = st.columns(3)
-        if c1.button('💖 恢復藥水') and '超級恢復藥水' in st.session_state.items:
+        if c1.button('💖 恢復藥水') and '超級恢復藥水' in items:
             st.session_state.hp = min(MAX_HP, st.session_state.hp + 30)
-            st.session_state.items.remove('超級恢復藥水')
+            items.remove('超級恢復藥水')
             st.success('使用超級恢復藥水，HP +30！')
 
-        if c2.button('🛡️ 防禦護符') and '防禦護符' in st.session_state.items:
+        if c2.button('🛡️ 防禦護符') and '防禦護符' in items:
             st.session_state.hp = min(MAX_HP, st.session_state.hp + 15)
-            st.session_state.items.remove('防禦護符')
+            items.remove('防禦護符')
             st.success('使用防禦護符，守住傷害！')
 
-        if c3.button('⚡ 加速卷軸') and '快速卷軸' in st.session_state.items:
+        if c3.button('⚡ 加速卷軸') and '快速卷軸' in items:
             st.session_state.score += 35
-            st.session_state.items.remove('快速卷軸')
+            items.remove('快速卷軸')
             st.success('使用快速卷軸，瞬間獲得 +35 分！')
+
+        st.session_state.items = items
 
     st.write('🎯 快點擊，盡可能衝到最高分！')
     st.write('⏳ 這場比賽會在倒數結束時決定勝負')
