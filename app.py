@@ -86,6 +86,14 @@ if 'play_sfx' not in st.session_state:
 
 # 主要函式
 
+def get_items():
+    items = st.session_state.get('items', [])
+    if not isinstance(items, list):
+        items = []
+        st.session_state.items = items
+    return items
+
+
 def reset_game():
     st.session_state.score = 0
     st.session_state.hp = MAX_HP
@@ -179,8 +187,10 @@ def hit_action():
     # 隨機道具掉落
     if random.random() < 0.3:
         drop = random.choice(['力量符文', '防禦護符', '快速卷軸'])
-        if drop not in st.session_state.items:
-            st.session_state.items.append(drop)
+        items = get_items()
+        if drop not in items:
+            items.append(drop)
+            st.session_state.items = items
             st.session_state.message += f' 獲得新道具：{drop}！🎁'
 
     if st.session_state.hp == 0:
@@ -233,10 +243,17 @@ if not st.session_state.game_over:
             items.remove('防禦護符')
             st.success('使用防禦護符，守住傷害！')
 
-        if c3.button('⚡ 加速卷軸') and '快速卷軸' in items:
-            st.session_state.score += 35
-            items.remove('快速卷軸')
-            st.success('使用快速卷軸，瞬間獲得 +35 分！')
+        if c3.button('⚡ 加速卷軸'):
+            try:
+                if '快速卷軸' in items:
+                    st.session_state.score += 35
+                    items.remove('快速卷軸')
+                    st.success('使用快速卷軸，瞬間獲得 +35 分！')
+                else:
+                    st.warning('你沒有快速卷軸，無法使用。')
+            except Exception as e:
+                st.error(f'道具處理發生錯誤：{e}')
+                items = []
 
         st.session_state.items = items
 
