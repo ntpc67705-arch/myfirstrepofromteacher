@@ -79,7 +79,7 @@ if 'level' not in st.session_state:
     st.session_state.level = 1
 if 'next_level_score' not in st.session_state:
     st.session_state.next_level_score = 150
-if 'items' not in st.session_state:
+if 'items' not in st.session_state or not isinstance(st.session_state.items, list):
     st.session_state.items = ['神秘藥水']
 if 'play_sfx' not in st.session_state:
     st.session_state.play_sfx = ''
