@@ -212,9 +212,14 @@ if not st.session_state.game_over:
         update_weather()
 
     # 道具使用
-    if st.session_state.items:
+    items = st.session_state.get('items', [])
+    if not isinstance(items, list):
+        items = []
+        st.session_state.items = items
+
+    if items:
         st.markdown('### 🧾 你擁有的道具')
-        for item in st.session_state.items:
+        for item in items:
             st.markdown(f'<div class="item-card">{item}</div>', unsafe_allow_html=True)
 
         c1, c2, c3 = st.columns(3)
